@@ -1,0 +1,155 @@
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+  <div class="container-fluid">
+
+    <a class="navbar-brand" href="/listings">
+      <i class="fa-regular fa-compass"></i>
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+      <div class="navbar-nav">
+
+        <a class="nav-link" href="/listings">
+          Explore
+        </a>
+
+      </div>
+
+
+      <!-- Search -->
+
+      <form class="search-form" method="GET" action="/listings">
+
+        <input
+          type="text"
+          name="search"
+          placeholder="Search destinations"
+        >
+
+        <button type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          Search
+        </button>
+
+      </form>
+
+
+      <div class="navbar-nav ms-auto">
+
+        <a class="nav-link" href="/listings/new">
+          Add new Listing
+        </a>
+
+
+        <%if(!currUser){%>
+
+          <a class="nav-link" href="/signup">
+            <b>Sign Up</b>
+          </a>
+
+          <a class="nav-link" href="/login">
+            <b>Log in</b>
+          </a>
+
+        <%}%>
+
+
+        <%if(currUser){%>
+
+          <a class="nav-link" href="/logout">
+            Log out
+          </a>
+
+        <%}%>
+
+      </div>
+
+    </div>
+
+  </div>
+</nav>
+
+
+<style>
+
+.search-form {
+  display: flex;
+  align-items: center;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.search-form input {
+  width: 250px;
+  height: 40px;
+
+  padding: 0 18px;
+
+  border: 1px solid #ddd;
+  border-radius: 25px;
+
+  outline: none;
+
+  font-size: 15px;
+}
+
+
+.search-form input:focus {
+  border-color: #ff385c;
+}
+
+
+.search-form button {
+  height: 40px;
+
+  margin-left: 8px;
+
+  padding: 0 18px;
+
+  border: none;
+  border-radius: 25px;
+
+  background-color: #ff385c;
+
+  color: white;
+
+  font-size: 14px;
+}
+
+
+.search-form button i {
+  font-size: 12px;
+  margin-right: 5px;
+}
+
+
+.search-form button:hover {
+  background-color: #e51d48;
+}
+
+
+@media (max-width: 768px) {
+
+  .search-form {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .search-form input {
+    width: 100%;
+  }
+
+}
+
+</style>

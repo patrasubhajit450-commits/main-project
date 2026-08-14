@@ -1,0 +1,332 @@
+<% layout("/layouts/boilerplate") %>
+
+<% let showSearch = true; %>
+
+
+<style>
+
+  .filters {
+    text-align: center;
+
+    margin-right: 30px;
+
+    opacity: 0.7;
+
+    cursor: pointer;
+  }
+
+
+  .filters i {
+    font-size: 18px;
+
+    margin-bottom: 5px;
+  }
+
+
+  .filters p {
+    font-size: 0.8rem;
+
+    margin: 0;
+  }
+
+
+  .filters:hover {
+    opacity: 1;
+  }
+
+
+  #filters {
+    display: flex;
+
+    align-items: center;
+
+    overflow-x: auto;
+
+    padding: 20px 10px 10px;
+
+    margin-bottom: 10px;
+  }
+
+
+  .listing-link {
+    text-decoration: none;
+  }
+
+
+  .card {
+    border: none !important;
+
+    margin-bottom: 2rem;
+  }
+
+
+  .card-img-top {
+    border-radius: 15px;
+
+    width: 100%;
+
+    height: 20rem;
+
+    object-fit: cover;
+  }
+
+
+  .card-body {
+    padding: 8px 0;
+  }
+
+
+  /* Tax Toggle */
+
+  .tax-toggle {
+    margin-left: auto;
+
+    border: 1px solid #ddd;
+
+    border-radius: 20px;
+
+    padding: 8px 15px;
+
+    white-space: nowrap;
+  }
+
+
+  @media (max-width: 768px) {
+
+    .tax-toggle {
+      display: none;
+    }
+
+  }
+
+</style>
+
+
+<!-- FILTERS -->
+
+<div id="filters">
+
+
+  <div class="filters">
+
+    <i class="fa-solid fa-fire"></i>
+
+    <p>Trending</p>
+
+  </div>
+
+
+  <div class="filters">
+
+    <i class="fa-solid fa-bed"></i>
+
+    <p>Rooms</p>
+
+  </div>
+
+
+  <div class="filters">
+
+    <i class="fa-solid fa-city"></i>
+
+    <p>Iconic Cities</p>
+
+  </div>
+
+
+  <div class="filters">
+
+    <i class="fa-solid fa-mountain"></i>
+
+    <p>Mountains</p>
+
+  </div>
+
+
+  <div class="filters">
+
+    <i class="fa-solid fa-chess-rook"></i>
+
+    <p>Castles</p>
+
+  </div>
+
+
+  <div class="filters">
+
+    <i class="fa-solid fa-person-swimming"></i>
+
+    <p>Amazing Pools</p>
+
+  </div>
+
+
+  <div class="filters">
+
+    <i class="fa-solid fa-campground"></i>
+
+    <p>Camping</p>
+
+  </div>
+
+
+  <div class="filters">
+
+    <i class="fa-solid fa-wheat-awn"></i>
+
+    <p>Farms</p>
+
+  </div>
+
+
+  <div class="filters">
+
+    <i class="fa-solid fa-snowflake"></i>
+
+    <p>Arctic</p>
+
+  </div>
+
+
+  <div class="filters">
+
+    <i class="fa-solid fa-house"></i>
+
+    <p>Domes</p>
+
+  </div>
+
+
+  <div class="filters">
+
+    <i class="fa-solid fa-sailboat"></i>
+
+    <p>Boats</p>
+
+  </div>
+
+
+  <!-- TAX SWITCH -->
+
+  <div class="tax-toggle">
+
+    <div class="form-check-reverse form-switch">
+
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="flexSwitchCheckDefault"
+      >
+
+      <label
+        class="form-check-label"
+        for="flexSwitchCheckDefault"
+      >
+        Display total after taxes
+      </label>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- ALL LISTINGS -->
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+
+  <% for(let listing of allListings) { %>
+
+
+    <a
+      href="/listings/<%=listing._id %>"
+      class="listing-link"
+    >
+
+      <div class="card col">
+
+        <img
+          src="<%=listing.image.url %>"
+          class="card-img-top"
+          alt="listing_image"
+        >
+
+
+        <div class="card-img-overlay"></div>
+
+
+        <div class="card-body">
+
+          <p class="card-text">
+
+            <b>
+              <%=listing.title %>
+            </b>
+
+            <br>
+
+
+            <!-- ORIGINAL PRICE -->
+
+            <span
+              class="listing-price"
+              data-price="<%=listing.price %>"
+            >
+              &#8377;<%=listing.price.toLocaleString("en-IN") %>
+            </span>
+
+            /night
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </a>
+
+
+  <%}%>
+
+</div>
+
+
+
+<!-- TAX CALCULATION -->
+
+<script>
+
+  let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+
+  taxSwitch.addEventListener("click", function () {
+
+    let prices = document.querySelectorAll(".listing-price");
+
+
+    prices.forEach(function (price) {
+
+      let originalPrice = Number(price.getAttribute("data-price"));
+
+
+      if (taxSwitch.checked) {
+
+        let totalPrice = originalPrice * 1.18;
+
+        price.innerText =
+          "₹" + Math.round(totalPrice).toLocaleString("en-IN");
+
+      } else {
+
+        price.innerText =
+          "₹" + originalPrice.toLocaleString("en-IN");
+
+      }
+
+    });
+
+  });
+
+</script>
